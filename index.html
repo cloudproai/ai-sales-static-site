@@ -250,6 +250,23 @@
 
           <form id="generateForm" method="POST" class="mt-8">
             <div class="space-y-5 justify-center">
+              <div class="flex mt-2.5 items-center justify-between">
+                <label for="" class="text-base font-medium text-gray-900">
+                  Set The Tone
+                </label>
+              </div>
+              <div class="mt-2.5">
+                <select name="tone" oninput="hideControls()" id="1" value="" rows="4" required
+                  class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg resize-y focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
+                  spellcheck="false">
+                  <option>Professional and Respectful</option>
+                  <option>Humor</option>
+
+                  <option>Technical/Industry-specific</option>
+                  <option>Simplistic</option>
+                  <option>Flattery</option>
+                </select>
+              </div>
               <div>
                 <label for="" class="text-base font-medium text-gray-900">
                   About You and Your Company
@@ -274,23 +291,7 @@
                     class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg resize-y focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                     spellcheck="false"></textarea>
                 </div>
-                <div class="flex mt-2.5 items-center justify-between">
-                  <label for="" class="text-base font-medium text-gray-900">
-                    Set The Tone
-                  </label>
-                </div>
-                <div class="mt-2.5">
-                  <select name="tone" oninput="hideControls()" id="1" value="" rows="4" required
-                    class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg resize-y focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
-                    spellcheck="false">
-                    <option>Professional and Respectful</option>
-                    <option>Humor</option>
 
-                    <option>Technical/Industry-specific</option>
-                    <option>Simplistic</option>
-                    <option>Flattery</option>
-                  </select>
-                </div>
               </div>
 
               <div class="mt-10">
@@ -710,7 +711,6 @@
   </section>
 
   <!-- end footer -->
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
     var event = ''
