@@ -255,7 +255,8 @@
                   About You and Your Company
                 </label>
                 <div class="mt-2.5">
-                  <textarea name="about_source" id="" placeholder="Write about your Company" value="" rows="4" required
+                  <textarea name="about_source" onchange="hideControls()" id="t2" placeholder="Write about your Company"
+                    value="" rows="4" required
                     class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg resize-y focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                     spellcheck="false"></textarea>
                 </div>
@@ -268,8 +269,8 @@
                   </label>
                 </div>
                 <div class="mt-2.5">
-                  <textarea name="about_target" id="" placeholder="Details about the target Person and Company" value=""
-                    rows="4" required
+                  <textarea name="about_target" onchange="hideControls()" id="t1"
+                    placeholder="Details about the target Person and Company" value="" rows="4" required
                     class="border block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-lg resize-y focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm caret-indigo-600"
                     spellcheck="false"></textarea>
                 </div>
@@ -282,6 +283,17 @@
                     <div data-glitch="Loading..." class="glitch">Loading...</div>
                   </div>
                   <p id="loader_text" class="">Generate</p>
+                </button>
+              </div>
+              <div class="hidden grid grid-cols-5 " id="controls">
+                <button type="button" id="view" onclick="showModal()"
+                  class="col-span-2 px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
+                  <p id="" class="">View Again</p>
+                </button>
+                <button></button>
+                <button type="button" id="clear" onclick="clearForm()"
+                  class="col-span-2 justify-center /2 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
+                  <p id="loader_text" class="">Clear</p>
                 </button>
               </div>
             </div>
@@ -673,8 +685,27 @@
   </section>
 
   <!-- end footer -->
-  {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
+    var event = ''
+    const loader = document.getElementById('loader')
+    const loader_text = document.getElementById('loader_text')
+    const genBtn = document.getElementById('genBtn')
+    const viewBtn = document.getElementById('view')
+    const clearBtn = document.getElementById('clear')
+    const controls = document.getElementById('controls')
+    function clearForm() {
+      document.getElementById('generateForm').reset()
+      controls.classList.add('hidden')
+      genBtn.disabled = false;
+    };
+
+    function hideControls() {
+      controls.classList.add('hidden')
+      genBtn.disabled = false;
+    }
+
     function showModal(data) {
       document.getElementById('static-modal').classList.remove('hidden');
       document.getElementById('mail_subject').innerText += data['subject']
@@ -693,7 +724,8 @@
       // Use the Clipboard API to copy the text
       navigator.clipboard.writeText(text).then(function () {
         closeModal()
-        document.getElementById('generateForm').reset()
+
+        // document.getElementById('generateForm').reset()
       }).catch(function (err) {
         console.error('Could not copy text: ', err);
       });
@@ -713,10 +745,7 @@
         closeModal();
       }
     });
-    var event = ''
-    const loader = document.getElementById('loader')
-    const loader_text = document.getElementById('loader_text')
-    const genBtn = document.getElementById('genBtn')
+
     document.getElementById("generateForm").addEventListener("submit", function (event) {
       event.preventDefault(); // Prevent default form submission behavior
       if (this == event) {
@@ -753,6 +782,9 @@
 
           // toggle modal
           showModal(data)
+          controls.classList.remove('hidden')
+          loader_text.classList.remove('hidden')
+          loader.classList.add('hidden')
           event = this
 
         })
