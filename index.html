@@ -312,10 +312,9 @@
                   spellcheck="false">
                   <option>Professional and Respectful</option>
                   <option>Humor</option>
-
                   <option>Technical/Industry-specific</option>
                   <option>Simplistic</option>
-                  <option>Flattery</option>
+                  <option>Formal</option>
                 </select>
               </div>
               <div>
@@ -493,31 +492,32 @@
 
       </div>
 
-      <div class="max-w-3xl mx-auto mt-8 space-y-4 md:mt-16">
+      <div class="faq-section  mx-auto mt-8 space-y-4 md:mt-16">
         <div
           class="transition-all duration-200 bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50">
-          <button type="button" class="flex items-center justify-between w-full px-4 py-5 sm:p-6">
+          <button type="button" class=" flex items-center justify-between w-full px-4 py-5 sm:p-6">
             <span class="flex text-lg font-semibold text-black">
               How to generate cold sales mail?
             </span>
 
-            <svg class="w-6 h-6 text-gray-400 rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-6 h-6 text-gray-400 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          <div class="px-4 pb-5 sm:px-6 sm:pb-6">
+          <div class="hidden px-4 pb-5 sm:px-6 sm:pb-6">
             <p>
               Fill up the above form and click generate.
             </p>
           </div>
         </div>
 
-        <div class="transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
-          <button type="button" class="flex items-center justify-between w-full px-4 py-5 sm:p-6">
+        <div
+          class="faq-section transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
+          <button type="button" class="button flex items-center justify-between w-full px-4 py-5 sm:p-6">
             <span class="flex text-lg font-semibold text-black">
-              How can I make payment using Paypal?
+              Can I buy the Complete version of the assistant?
             </span>
 
             <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -528,18 +528,17 @@
 
           <div class="hidden px-4 pb-5 sm:px-6 sm:pb-6">
             <p>
-              Amet minim mollit non deserunt ullamco est sit
-              <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a>
-              do amet sint. Velit officia consequat duis enim velit mollit.
+              Please Contact us directly for the full version of the application
             </p>
           </div>
         </div>
 
-        <div class="transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
+        <div
+          class="faq-section transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
           <div class="">
             <button type="button" class="flex items-center justify-between w-full px-4 py-5 sm:p-6">
               <span class="flex text-lg font-semibold text-black">
-                Can I cancel my plan?
+                How to Edit the Content?
               </span>
 
               <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -550,15 +549,13 @@
 
             <div class="hidden px-4 pb-5 sm:px-6 sm:pb-6">
               <p>
-                Amet minim mollit non deserunt ullamco est sit
-                <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a>
-                do amet sint. Velit officia consequat duis enim velit mollit.
+                Click on the area you want to edit, make changes and then copy to clipboard
               </p>
             </div>
           </div>
         </div>
 
-        <div class="transition-all duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
+        <div class="faq-section duration-200 bg-white border border-gray-200 cursor-pointer hover:bg-gray-50">
           <button type="button" class="flex items-center justify-between w-full px-4 py-5 sm:p-6">
             <span class="flex text-lg font-semibold text-black">
               How can I reach to support?
@@ -572,9 +569,7 @@
 
           <div class="hidden px-4 pb-5 sm:px-6 sm:pb-6">
             <p>
-              Amet minim mollit non deserunt ullamco est sit
-              <a href="#" title="" class="text-blue-600 transition-all duration-200 hover:underline">aliqua dolor</a>
-              do amet sint. Velit officia consequat duis enim velit mollit.
+              Visit Contact us and fill out a form or call/mail us directly
             </p>
           </div>
         </div>
@@ -774,6 +769,24 @@
     const viewBtn = document.getElementById('view')
     const clearBtn = document.getElementById('clear')
     const controls = document.getElementById('controls')
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Select all the buttons within the FAQ section
+      const faqButtons = document.querySelectorAll('.faq-section button');
+      faqButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          // This will find the next sibling element, which is your answer div
+          const answer = this.nextElementSibling;
+
+          // Toggle the 'hidden' class to show or hide the answer
+          answer.classList.toggle('hidden');
+
+          // Optionally, rotate the arrow icon using Tailwind's rotate class
+          const svg = this.querySelector('svg');
+          svg.classList.toggle('rotate-180');
+        });
+      });
+    });
 
     function clearForm() {
       document.getElementById('generateForm').reset()
