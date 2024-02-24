@@ -740,7 +740,7 @@
             Subscribe to newsletter
           </p>
 
-          <form action="#" method="POST" class="mt-6">
+          <form action="#" id='subscribe2' method="POST" class="mt-6">
             <div>
               <label for="email" class="sr-only">Email</label>
               <input type="email" name="email" id="email" placeholder="Enter your email"
@@ -769,7 +769,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
-    var event = ''
+    var api_url = "https://g88gy3bcz2.execute-api.us-east-1.amazonaws.com/Prod"
     const loader = document.getElementById('loader')
     const loader_text = document.getElementById('loader_text')
     const genBtn = document.getElementById('genBtn')
@@ -836,6 +836,85 @@
 
     }
 
+    function promptSuccess() {
+      console.log('success')
+    }
+
+    document.getElementById("join_newsletter").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      // Fetch form data
+      const formData = new FormData(this);
+
+      // Convert form data to JSON
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Make POST request
+      fetch(api_url + '/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Handle response data as needed
+
+          // toggle modal
+          promptSuccess()
+
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+    document.getElementById("subscribe2").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      // Fetch form data
+      const formData = new FormData(this);
+
+      // Convert form data to JSON
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Make POST request
+      fetch(api_url + '/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Handle response data as needed
+
+          // toggle modal
+          promptSuccess()
+
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    });
     function hideControls() {
       controls.classList.add('hidden');
       genBtn.disabled = false;
@@ -925,7 +1004,7 @@
       });
 
       // Make POST request
-      fetch('https://g88gy3bcz2.execute-api.us-east-1.amazonaws.com/Prod/generate', {
+      fetch(api_url + '/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
