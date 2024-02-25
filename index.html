@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property=’og:title’ content="Zales" />
-  <meta property=’og:image’ content="https://imgdb.net/16201" />
+  <meta property=’og:image’ content="https://zales.cloudpro.ai/thumbnail.png" />
   <meta property=’og:description’ content="AI Sales Assistant. Write Personalized sales mail with the help of AI" />
   <meta property=’og:url’ content="https://zales.cloudpro.ai" />
   <meta property='og:image:width' content='1200' />
@@ -222,7 +222,7 @@
           </button>
           <button type="button" data-te-ripple-init data-te-ripple-color="light" data-sharer="linkedin"
             data-title="Checkout this Awesome Sales Pitch Generator for Free" data-hashtags="Zales, Cloudpro.ai"
-            data-url="https://zales.cloudpro.ai"
+            data-url="https://zales.cloudpro.ai" data-link="https://zales.cloudpro.ai"
             class="mb-2 rounded px-6 py-2.5 text-xs font-medium uppercase leading-normal text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg"
             style="background-color: #1da1f2">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="" viewBox="0 0 24 24" class="w-full m-auto">
@@ -1167,8 +1167,6 @@
           joinBtn.querySelector('p').classList.remove('hidden')
           joinBtn.querySelector('div').classList.add('hidden')
           joinBtn.disabled = true
-
-
         })
         .catch(error => {
           console.error('There was a problem with the fetch operation:', error);
@@ -1360,6 +1358,7 @@
       let modal = document.getElementById('static-modal');
       let mailing_modal = document.getElementById('mailing-modal')
       let quota_modal = document.getElementById('quota-modal')
+      let socials_modal = document.getElementById('socials-modal')
       if (event.target == modal) {
         closeModal(modal);
       }
@@ -1369,6 +1368,9 @@
       if (event.target == quota_modal) {
         closeModal(quota_modal);
         document.getElementById('generateForm').reset()
+      }
+      if (event.target == socials_modal) {
+        closeModal(socials_modal);
       }
     });
 
