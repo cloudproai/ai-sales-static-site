@@ -120,8 +120,15 @@
 </head>
 
 <body class="bg-gray-50">
+  <div id='sub_message'
+    class="hidden duration-2000 z-50 transition-opacity opacity-0 fixed inset-0 flex justify-center items-end">
+    <div class="bg-gray-100 border border-blue-400 text-green-700 px-4 py-3 rounded relative" role="message">
+      <strong class="font-bold">Successfully Subscribed</strong>
+    </div>
+  </div>
+
   <div id='message'
-    class="hidden duration-2000 z-30 transition-opacity opacity-0 fixed inset-0 flex justify-center items-end">
+    class="hidden duration-2000 z-50 transition-opacity opacity-0 fixed inset-0 flex justify-center items-end">
     <div class="bg-gray-100 border border-blue-400 text-green-700 px-4 py-3 rounded relative" role="message">
       <strong class="font-bold">Copied To Clipboard</strong>
     </div>
@@ -155,9 +162,77 @@
 
   </header>
 
+  <div id="mailing-modal" data-modal-backdrop="static" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex backdrop-blur"
+    aria-modal="true" role="dialog">
+
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex flex-wrap items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl  flex-1 grow font-semibold text-gray-900 dark:text-white">
+            Join Our Newsletter
+          </h3>
+          <button type="button" onclick="closeModal(document.getElementById('mailing-modal'))"
+            class="end text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="static-modal">
+            <svg class="w-3 h-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <p class="w-full text-white">Never Miss Exciting AI Products from Cloudpro</p>
+        </div>
+        <!-- Modal body -->
+        <form id="join_newsletter-modal" method="POST" class="mt-2 lg:mt-8">
+          <div class="flex flex-col items-center w-4/5 pb-5 m-auto sm:flex-row sm:justify-center">
+            <div class="flex-1 w-full min-w-0 px-4 sm:px-0">
+              <div class="relative text-gray-400 focus-within:text-gray-600">
+                <label for="email" class="sr-only"></label>
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                  </svg>
+                </div>
+                <input type="email" name="email" id="email" placeholder="Enter email address"
+                  class="block w-full py-4 pl-10 pr-4 text-base text-black placeholder-gray-500 transition-all duration-200 border-gray-200 rounded-md sm:rounded-r-none caret-blue-600 focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                  required />
+              </div>
+            </div>
+
+            <button type="submit" id="mailingList"
+              class="inline-flex items-center justify-center flex-shrink-0 w-auto px-10 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md sm:mt-0 sm:rounded-l-none sm:w-auto hover:bg-blue-700 focus:bg-blue-700">
+              <div role="status" class="hidden" id="loader">
+                <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                  viewBox="0 0 100 101" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+                </svg>
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p class="join_text">Join</p>
+
+            </button>
+          </div>
+        </form>
+
+      </div>
+      <!-- Modal footer -->
+
+    </div>
+  </div>
+
 
   <div id="static-modal" data-modal-backdrop="static" tabindex="-1"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-20 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex backdrop-blur"
+    class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-20 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex backdrop-blur"
     aria-modal="true" role="dialog">
 
     <div class="relative p-4 w-full max-w-2xl max-h-full">
@@ -286,7 +361,20 @@
 
             <button type="submit" id="mailingList"
               class="inline-flex items-center justify-center flex-shrink-0 w-auto px-10 py-4 mt-4 font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md sm:mt-0 sm:rounded-l-none sm:w-auto hover:bg-blue-700 focus:bg-blue-700">
-              Join
+              <div role="status" class="hidden" id="loader">
+                <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                  viewBox="0 0 100 101" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+                </svg>
+                <span class="sr-only">Loading...</span>
+              </div>
+              <p class="join_text">Join</p>
+
             </button>
           </div>
         </form>
@@ -842,10 +930,12 @@
 
     document.getElementById("join_newsletter").addEventListener("submit", function (event) {
       event.preventDefault(); // Prevent default form submission behavior
-
+      joinBtn = event.target.querySelector('button')
+      joinBtn.querySelector('p').classList.add('hidden')
+      joinBtn.querySelector('div').classList.remove('hidden')
       // Fetch form data
       const formData = new FormData(this);
-
+      const elem = document.getElementById('sub_message')
       // Convert form data to JSON
       const jsonData = {};
       formData.forEach((value, key) => {
@@ -864,13 +954,22 @@
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
+          setTimeout(() => {
+            elem.classList.remove('opacity-0');
+            elem.classList.add('opacity-100');
+          }, 500);
+          elem.classList.replace('opacity-100', 'opacity-0');
+          setTimeout(() => {
+            elem.classList.add('hidden');
+          }, 2000);
           return response.json();
         })
         .then(data => {
           // Handle response data as needed
+          joinBtn.querySelector('p').classList.remove('hidden')
+          joinBtn.querySelector('div').classList.add('hidden')
+          joinBtn.disabled = true
 
-          // toggle modal
-          promptSuccess()
 
         })
         .catch(error => {
@@ -883,7 +982,7 @@
 
       // Fetch form data
       const formData = new FormData(this);
-
+      var element = document.getElementById('sub_message')
       // Convert form data to JSON
       const jsonData = {};
       formData.forEach((value, key) => {
@@ -905,11 +1004,57 @@
           return response.json();
         })
         .then(data => {
-          // Handle response data as needed
+          setTimeout(() => {
+            element.classList.remove('opacity-0');
+            element.classList.add('opacity-100');
+          }, 500);
+          element.classList.replace('opacity-100', 'opacity-0');
+          setTimeout(() => {
+            element.classList.add('hidden');
+          }, 2000);
 
-          // toggle modal
-          promptSuccess()
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
+    });
 
+    document.getElementById("join_newsletter-modal").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      // Fetch form data
+      const formData = new FormData(this);
+      var element = document.getElementById('sub_message')
+      // Convert form data to JSON
+      const jsonData = {};
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Make POST request
+      fetch(api_url + '/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setTimeout(() => {
+            element.classList.remove('opacity-0');
+            element.classList.add('opacity-100');
+          }, 500);
+          element.classList.replace('opacity-100', 'opacity-0');
+          setTimeout(() => {
+            element.classList.add('hidden');
+          }, 2000);
+          closeModal(document.getElementById('mailing-modal'))
         })
         .catch(error => {
           console.error('There was a problem with the fetch operation:', error);
@@ -942,8 +1087,8 @@
     }
 
     // Function to close the modal
-    function closeModal() {
-      document.getElementById('static-modal').classList.add('hidden');
+    function closeModal(item) {
+      item.classList.add('hidden');
     }
 
     function copyToClipboard() {
@@ -954,6 +1099,8 @@
       // Use the Clipboard API to copy the text
       navigator.clipboard.writeText(text).then(function () {
 
+        mailing_modal = document.getElementById('mailing-modal')
+        mailing_modal.classList.remove('hidden')
         element.classList.remove('hidden');
         setTimeout(() => {
           element.classList.remove('opacity-0');
@@ -980,8 +1127,12 @@
     // Optional: Close modal if the user clicks outside of it
     window.addEventListener('click', function (event) {
       let modal = document.getElementById('static-modal');
+      let mailing_modal = document.getElementById('mailing-modal')
       if (event.target == modal) {
-        closeModal();
+        closeModal(modal);
+      }
+      if (event.target == mailing_modal) {
+        closeModal(mailing_modal);
       }
     });
 
